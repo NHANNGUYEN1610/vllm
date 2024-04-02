@@ -13,7 +13,7 @@ RUN apt-get update -y \
 # or future versions of triton.
 RUN ldconfig /usr/local/cuda-12.1/compat/
 
-WORKDIR /workspace
+WORKDIR /workspace1
 
 # install build and runtime dependencies
 COPY requirements.txt requirements.txt
