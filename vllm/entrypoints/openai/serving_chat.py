@@ -19,7 +19,6 @@ from vllm.outputs import RequestOutput
 from vllm.utils import random_uuid
 
 logger = init_logger(__name__)
-log_filename = "/workspace/request_logs.jsonl"
 
 class OpenAIServingChat(OpenAIServing):
 
@@ -311,20 +310,6 @@ class OpenAIServingChat(OpenAIServing):
             choices=choices,
             usage=usage,
         )
-
-        # Determine the mode based on file existence
-        try:
-            # Try to open the file in append mode
-            with jsonlines.open(log_filename, mode="a") as writer:
-                writer.write(response.model_dump_json())
-        except FileNotFoundError:
-            try:
-                with jsonlines.open(log_filename, mode="w") as writer:
-                    writer.write(response.model_dump_json())
-            except Exception as e:
-                print("Failed to write the file:", e)
-        else:
-            print("Successfully appended to the file.")
 
         return response
 
