@@ -1,8 +1,6 @@
 import codecs
 import time
-import os
 import jsonlines
-import json
 from typing import AsyncGenerator, AsyncIterator, List, Optional, Union
 
 from fastapi import Request
@@ -321,7 +319,6 @@ class OpenAIServingChat(OpenAIServing):
                 writer.write(response.model_dump_json())
         except FileNotFoundError:
             try:
-                # If the file doesn't exist, try to open it in write mode to create it
                 with jsonlines.open(log_filename, mode="w") as writer:
                     writer.write(response.model_dump_json())
             except Exception as e:
